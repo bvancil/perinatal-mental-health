@@ -135,6 +135,7 @@ sample_children <- function(.data, size) {
 plot_screens_by <- function(.data, ...) {
   ggplot2::ggplot(.data, ggplot2::aes(screen_day, score)) +
     ggplot2::geom_line() +
+    ggplot2::geom_point() +
     ggplot2::facet_wrap(vars(...)) +
     ggplot2::theme_minimal()
 }
