@@ -4,6 +4,7 @@ library("styler")
 base::message("Building project...")
 
 base::source("./src/R/simulate_data.R", encoding = "UTF-8")
+base::source("./src/R/generate_features.R", encoding = "UTF-8")
 
 plan <- drake::drake_plan(
   style_project = styler::style_dir(
@@ -25,7 +26,9 @@ plan <- drake::drake_plan(
     end_days = sim_screen_end_days
   ),
   sample_sim_screen_data = sample_children(sim_screen_data, 12L),
-  plot_sample_sim_screen_data = plot_screens_by(sample_sim_screen_data, child_id)
+  plot_sample_sim_screen_data = plot_screens_by(sample_sim_screen_data, child_id),
+  sample_sim_features_data = generate_simple_features(sample_sim_screen_data),
+  sim_features_data = generate_simple_features(sim_screen_data)
 )
 
 drake::make(plan)
